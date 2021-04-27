@@ -8,22 +8,16 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 app.get("/",function(req,res){
-	var url = "(https://api.wazirx.com/api/v2/tickers";
+	var url = "https://api.wazirx.com/api/v2/tickers";
 	request(url,function(error,response,body){
 		if(!error && response.statusCode==200){
 			var data = JSON.parse(body);
-			console.log(data);
-			res.render("index.ejs",{data:data});
+			var keys = Object.keys(data);
+			res.render("index.ejs",{data:data,keys:keys});
 			
 		}
 	})
-	
-	
-	
-	
 })
-
-
 
 app.listen(process.env.PORT || 3000,function(){
 	console.log("server started");
